@@ -1,9 +1,5 @@
 package com.sandeep.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.SQLDeleteAll;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -12,7 +8,7 @@ import java.util.UUID;
  * Created by abhishek on 4/3/18.
  */
 @Entity
-@Table(name = "sandeep_calc")
+@Table(name = "sandeep_calc",schema = "sandeep")
 public class Calc {
 
     @Id

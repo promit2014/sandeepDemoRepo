@@ -1,6 +1,6 @@
 package com.sandeep.service;
 
-import com.sandeep.dto.DivDto;
+import com.sandeep.exception.NotFoundException;
 import com.sandeep.model.Calc;
 import com.sandeep.repository.CalcRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,7 +33,9 @@ public class CalcService {
 
         Optional<Calc> resultObj = Optional.ofNullable(calcRepo.findOne(calcId));
 
-        Calc result  = resultObj.orElseThrow(Exception::new);
+        Calc result  = resultObj.orElseThrow(()->{
+            return new NotFoundException("Calc Id "+calcId+" not found");
+        });
 
         result.setFirst(a);
         result.setSecond(b);

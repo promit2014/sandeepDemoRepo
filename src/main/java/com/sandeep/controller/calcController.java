@@ -38,6 +38,7 @@ public class calcController {
         return req;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/div", method = RequestMethod.POST)
     public Calc divandstore(@RequestBody DivDto req){
         return calcService.divAndStoreService(req.getA(),req.getB());

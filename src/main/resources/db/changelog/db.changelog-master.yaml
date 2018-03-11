@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_user
+      author: promit.2014@gmail.com
+      changes:
+      - sql:
+          dbms: h2
+          sql: CREATE USER appuser PASSWORD '@ppus3r';
+      - sql:
+          dbms: mysql
+          sql: CREATE USER IF NOT EXISTS 'appuser'@'localhost' IDENTIFIED BY '@ppus3r';
+
+  - changeSet:
+      id: create_schema
+      author: promit.2014@gmail.com
+      changes:
+      - sql:
+          dbms: h2
+          sql: DROP SCHEMA IF EXISTS sandeep;
+      - sql:
+          dbms: h2
+          sql: CREATE SCHEMA sandeep;
+      - sql:
+          dbms: mysql
+          sql: GRANT INSERT, SELECT, DELETE, UPDATE ON sandeep.* TO 'appuser';
+
+  - changeSet:
+      id: create_calc_table
+      author: promit.2014@gmail.com
+      changes:
+      - createTable:
+          schemaName: sandeep
+          tableName: sandeep_calc
+          columns:
+          - column:
+              name: calc_id
+              type: UUID
+              constraints:
+                primaryKey: true
+                nullable: false
+          - column:
+              name: first
+              type: double
+              constraints:
+                nullable: false
+          - column:
+              name: second
+              type: double
+              constraints:
+                nullable: false
+          - column:
+              name: result
+              type: double
+              constraints:
+                nullable: true
+      - sql:
+          dbms: h2
+          sql: GRANT INSERT, SELECT, DELETE, UPDATE ON sandeep.sandeep_calc TO appuser;
